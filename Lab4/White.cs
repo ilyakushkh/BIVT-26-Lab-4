@@ -97,6 +97,31 @@
             double[] array = null;
 
             // code here
+            if (n <= 0)
+    {
+        array = null;
+    }
+    else if (n == 1)
+    {
+        if (a == b)
+            array = new double[] { a };
+        else
+            array = null;
+    }
+    else if (a == b)
+    {
+        array = null;
+    }
+    else
+    {
+        array = new double[n];
+        double step = (b - a) / (n - 1);
+
+        for (int i = 0; i < n; i++)
+        {
+            array[i] = a + i * step;
+        }
+    }
 
             // end
 
@@ -108,6 +133,48 @@
             double[] restored = null;
 
             // code here
+            if (raw == null || raw.Length < 3)
+    {
+        restored = null;
+    }
+    else
+    {
+        bool allDamaged = true;
+        for (int i = 0; i < raw.Length; i++)
+        {
+            if (raw[i] != -1)
+            {
+                allDamaged = false;
+                break;
+            }
+        }
+
+        if (allDamaged)
+        {
+            restored = (double[])raw.Clone();
+        }
+        else
+        {
+            restored = (double[])raw.Clone();
+
+            for (int i = 0; i < raw.Length; i++)
+            {
+                if (raw[i] == -1)
+                {
+                    int leftIndex = (i == 0) ? raw.Length - 1 : i - 1;
+                    int rightIndex = (i == raw.Length - 1) ? 0 : i + 1;
+
+                    double left = raw[leftIndex];
+                    double right = raw[rightIndex];
+
+                    if (left != -1 && right != -1)
+                    {
+                        restored[i] = (left + right) / 2.0;
+                    }
+                }
+            }
+        }
+    }
 
             // end
 
